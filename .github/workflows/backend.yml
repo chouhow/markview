@@ -1,0 +1,56 @@
+name: Backend CI/CD
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend.yml'
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: |
+          pip install -r requirements.txt
+
+      - name: Lint with ruff
+        working-directory: ./backend
+        run: |
+          pip install ruff
+          ruff check app/ || true
+
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend image
+        working-directory: ./backend
+        run: docker build -t markview-backend .
+
+      # 可选：推送到 Docker Hub
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      # - name: Push image
+      #   run: |
+      #     docker tag markview-backend ${{ secrets.DOCKER_USERNAME }}/markview-backend:latest
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/es6-backend:latest

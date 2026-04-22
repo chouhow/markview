@@ -1,0 +1,469 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.625rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ========== Highlight <mark> ========== */
+mark {
+  background: linear-gradient(120deg, #fef08a 0%, #fde047 100%);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: inherit;
+  font-weight: 500;
+}
+
+.dark mark {
+  background: linear-gradient(120deg, #ca8a04 0%, #eab308 100%);
+  color: rgb(31 41 55);
+}
+
+/* ========== Highlight Toolbar ========== */
+@keyframes toolbar-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-toolbar-pop {
+  animation: toolbar-pop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* ========== Selection ========== */
+::selection {
+  background-color: rgba(250, 204, 21, 0.3);
+}
+
+/* ========== Edit Mode Notice ========== */
+.edit-notice {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: rgb(240 253 244);
+  border: 1px solid rgb(187 247 208);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  color: rgb(21 128 61);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dark .edit-notice {
+  background-color: rgba(22, 101, 52, 0.15);
+  border-color: rgba(34, 197, 94, 0.25);
+  color: rgb(134 239 172);
+}
+
+/* ========== Empty State ========== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+/* ========== Deletable Block ========== */
+.deletable-block {
+  position: relative;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  padding: 2px;
+  margin: -2px;
+}
+
+.deletable-block:hover {
+  background-color: rgba(254, 226, 226, 0.4);
+  box-shadow: 0 0 0 1px rgba(252, 165, 165, 0.5);
+}
+
+.dark .deletable-block:hover {
+  background-color: rgba(127, 29, 29, 0.15);
+  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.25);
+}
+
+/* ========== Inline Edit Target ========== */
+.inline-edit-target {
+  display: inline;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  margin: -0.125rem -0.25rem;
+  transition: all 0.15s ease;
+  outline: none;
+  cursor: text;
+}
+
+.inline-edit-target:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.2);
+}
+
+.inline-edit-target:focus {
+  background-color: rgba(59, 130, 246, 0.12) !important;
+  box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.4) !important;
+}
+
+.dark .inline-edit-target:hover {
+  background-color: rgba(96, 165, 250, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.25);
+}
+
+.dark .inline-edit-target:focus {
+  background-color: rgba(96, 165, 250, 0.15) !important;
+  box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.5) !important;
+}
+
+/* ========== Delete Button ========== */
+.delete-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 20;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35), 0 0 0 1px rgba(220, 38, 38, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.dark .delete-btn {
+  border-color: rgb(31, 41, 55);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4), 0 0 0 1px rgba(220, 38, 38, 0.2);
+}
+
+.deletable-block:hover .delete-btn {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  transform: scale(1.15) !important;
+  box-shadow: 0 3px 12px rgba(220, 38, 38, 0.5);
+}
+
+.delete-btn:active {
+  transform: scale(0.95) !important;
+}
+
+/* ========== Markdown Content Styles ========== */
+.markdown-body h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: rgb(17 24 39);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgb(250 204 21);
+}
+.dark .markdown-body h1 {
+  color: rgb(255 255 255);
+}
+
+.markdown-body h2 {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: rgb(31 41 55);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dark .markdown-body h2 {
+  color: rgb(243 244 246);
+}
+
+.markdown-body h2 > span:first-child {
+  display: block;
+  width: 4px;
+  height: 1.5rem;
+  background-color: rgb(250 204 21);
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.markdown-body h3 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: rgb(55 65 81);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.dark .markdown-body h3 {
+  color: rgb(229 231 235);
+}
+
+.markdown-body p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgb(55 65 81);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.dark .markdown-body p {
+  color: rgb(209 213 219);
+}
+
+.markdown-body blockquote {
+  border-left: 4px solid rgb(250 204 21);
+  background-color: rgb(254 252 232);
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 1.5rem 0;
+  color: rgb(55 65 81);
+}
+.dark .markdown-body blockquote {
+  background-color: rgba(161, 98, 7, 0.1);
+  color: rgb(209 213 219);
+}
+
+.markdown-body pre {
+  background-color: rgb(17 24 39);
+  color: rgb(243 244 246);
+  padding: 1.5rem;
+  padding-top: 2rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem 0;
+}
+
+.markdown-body code:not(pre code) {
+  background-color: rgb(243 244 246);
+  color: rgb(219 39 119);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: ui-monospace, monospace;
+}
+.dark .markdown-body code:not(pre code) {
+  background-color: rgb(31 41 55);
+  color: rgb(244 114 182);
+}
+
+.markdown-body table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.markdown-body thead {
+  background-color: rgb(249 250 251);
+}
+.dark .markdown-body thead {
+  background-color: rgb(31 41 55);
+}
+
+.markdown-body th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: rgb(55 65 81);
+  border-bottom: 1px solid rgb(229 231 235);
+}
+.dark .markdown-body th {
+  color: rgb(229 231 235);
+  border-bottom-color: rgb(55 65 81);
+}
+
+.markdown-body td {
+  padding: 0.75rem 1rem;
+  color: rgb(75 85 99);
+  border-bottom: 1px solid rgb(243 244 246);
+}
+.dark .markdown-body td {
+  color: rgb(209 213 219);
+  border-bottom-color: rgb(55 65 81);
+}
+
+.markdown-body tr:hover {
+  background-color: rgb(249 250 251);
+}
+.dark .markdown-body tr:hover {
+  background-color: rgba(55, 65, 81, 0.3);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin: 1rem 0;
+  padding-left: 1.25rem;
+}
+
+.markdown-body ul {
+  list-style-type: disc;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+}
+
+.markdown-body li {
+  margin-bottom: 0.5rem;
+  color: rgb(55 65 81);
+  line-height: 1.75;
+}
+.dark .markdown-body li {
+  color: rgb(209 213 219);
+}
+
+.markdown-body hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid rgb(229 231 235);
+}
+.dark .markdown-body hr {
+  border-top-color: rgb(55 65 81);
+}
+
+.markdown-body img {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(229 231 235);
+  margin: 1.5rem 0;
+}
+.dark .markdown-body img {
+  border-color: rgb(55 65 81);
+}
+
+.markdown-body strong {
+  font-weight: 700;
+  color: rgb(17 24 39);
+}
+.dark .markdown-body strong {
+  color: rgb(255 255 255);
+}
+
+.markdown-body details {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: rgb(239 246 255);
+  border: 1px solid rgb(191 219 254);
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+.dark .markdown-body details {
+  background-color: rgba(30, 58, 138, 0.15);
+  border-color: rgba(96, 165, 250, 0.25);
+}
+
+.markdown-body summary {
+  font-weight: 600;
+  color: rgb(29 78 216);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dark .markdown-body summary {
+  color: rgb(96 165 250);
+}

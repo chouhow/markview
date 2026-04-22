@@ -1,0 +1,40 @@
+services:
+  # 后端 API 服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        # pip 国内源配置（阿里云），加速依赖安装
+        PIP_INDEX_URL: https://mirrors.aliyun.com/pypi/simple/
+        PIP_TRUSTED_HOST: mirrors.aliyun.com
+    container_name: markview-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # 挂载前端 public 目录，让后端可以读取 MD 文件
+      - ./frontend/public:/app/frontend/public:ro
+    environment:
+      - CHAPTERS_DIR=/app/frontend/public
+      - DEBUG=false
+    restart: unless-stopped
+    networks:
+      - markview-network
+
+  # 前端 Nginx 服务
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: markview-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - markview-network
+
+networks:
+  markview-network:
+    driver: bridge
